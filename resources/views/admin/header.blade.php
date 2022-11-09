@@ -3,7 +3,7 @@
 <div class="d-flex align-items-center justify-content-between">
     <a href="index.html" class="logo d-flex align-items-center">
     <img src="{{ url('admin/img/logo.png') }} " alt="">
-    <span class="d-none d-lg-block">NF Com - Store</span>
+    <span class="d-none d-lg-block">Computerpedia</span>
     </a>
     <i class="bi bi-list toggle-sidebar-btn"></i>
 </div><!-- End Logo -->
