@@ -14,10 +14,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('landingpage.index');
+    return view('landingpage.home');
 });
 
 //routing admin dashboard
-Route::get('/admin/dashboard', function () {
+Route::get('/administrator', function () {
     return view('admin.home');
+});
+
+//routing landingpage
+Route::get('/about', function () {
+    return view('landingpage.about');
+});
+
+Route::get('/about', function () {
+    return view('landingpage.about');
+});
+
+Route::get('/shop', function () {
+    return view('landingpage.shop');
+});
+
+Route::get('/shop-single', function () {
+    return view('landingpage.shop-single');
+});
+
+Route::get('/contact', function () {
+    return view('landingpage.contact');
 });
