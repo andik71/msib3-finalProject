@@ -3,7 +3,7 @@
         <div class="w-100 d-flex justify-content-between">
             <div>
                 <i class="fa fa-user mx-2"></i>
-                <a class="navbar-sm-brand text-light text-decoration-none" href="{{ url('/administrator') }}">visit admin panel</a>
+                <a class="navbar-sm-brand text-light text-decoration-none" href="{{ url('/admin') }}">visit admin panel</a>
             </div>
             <div>
                 <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
