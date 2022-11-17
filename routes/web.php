@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderDetailsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
+use App\Models\OrderDetails;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,25 +18,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/administrator', [ProductController::class, 'index']);
-
 Route::resource('admin/product', ProductController::class);
-Route::resource('admin/category', CategoryController::class);
-Route::resource('admin/store', StoreController::class);
+Route::get('admin/product-edit/{id}', [ProductController::class,'edit']);
 
-Route::get('/admin/detailproduct', function () {
-    return view('admin.detailproduct');
-});
+Route::resource('admin/category', CategoryController::class);
+Route::get('admin/category-edit/{id}', [CategoryController::class, 'edit']);
+
+Route::resource('admin/store', StoreController::class);
+Route::get('admin/store-edit/{id}', [StoreController::class, 'edit']);
+
+Route::resource('admin/order', OrderDetailsController::class);
+Route::get('admin/order-edit/{id}', [OrderDetailsController::class, 'edit']);
 
 Route::get('/admin', function () {
     return view('admin.home');
-
 });
 
-// //routing admin dashboard
-// Route::get('/administrator', function () {
-//     return view('admin.home');
-// });
+//routing landingpage
+Route::get('/', function () {
+    return view('landingpage.home');
+});
 
 //routing landingpage
 Route::get('/about', function () {
