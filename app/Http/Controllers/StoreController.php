@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StoreController extends Controller
 {
@@ -14,7 +15,7 @@ class StoreController extends Controller
      */
     public function index()
     {
-        return view('admin.store', [
+        return view('admin.store.store', [
             'stores' => Store::all()
         ]);
     }
@@ -26,7 +27,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.store.add');
     }
 
     /**
@@ -37,7 +38,23 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:45',
+            'location' => 'required|max:45',
+            'rating' => 'required|max:45',
+        ]);
+
+
+
+        DB::table('store')->insert(
+            [
+                'name' => $request->name,
+                'location' => $request->location,
+                'rating' => $request->rating,
+            ]
+        );
+
+        return redirect()->route('store.index')->with('success', 'Data Store Successfully Added');
     }
 
     /**
@@ -46,9 +63,10 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function show(Store $store)
+    public function show($id)
     {
-        //
+        $store = Store::find($id);
+        return view('admin.store.detail', compact('store'));
     }
 
     /**
@@ -57,9 +75,11 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function edit(Store $store)
+    public function edit($id)
     {
-        //
+        return view('admin.store.edit', [
+            'store' => Store::find($id)
+        ]);
     }
 
     /**
@@ -69,9 +89,23 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Store $store)
+    public function update(Request $request,$id)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:45',
+            'location' => 'required|max:45',
+            'rating' => 'required|max:45',
+        ]);
+
+        DB::table('store')->where('id', $id)->update(
+            [
+                'name' => $request->name,
+                'location' => $request->location,
+                'rating' => $request->rating,
+            ]
+        );
+
+        return redirect('admin/store' . '/' . $id)->with('success', 'Data Store Succesfully Updated');
     }
 
     /**
@@ -80,8 +114,9 @@ class StoreController extends Controller
      * @param  \App\Models\Store  $store
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Store $store)
+    public function destroy($id)
     {
-        //
+        Store::where('id', $id)->delete();
+        return redirect()->route('store.index')->with('success', 'Data Store Succesfully Deleted');
     }
 }

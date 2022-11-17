@@ -14,7 +14,8 @@ class OrderDetailsController extends Controller
      */
     public function index()
     {
-        //
+        $order_details = OrderDetails::orderBy('id', 'DESC')->get();
+        return view('admin.orderdetails.index', compact('order_details'));
     }
 
     /**
