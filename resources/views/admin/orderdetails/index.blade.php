@@ -1,15 +1,22 @@
 @extends('admin.index')
 @section('content')
 <div class="pagetitle">
-    <h1>List Category</h1>
+    <h1>List Order</h1>
     <nav>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         <li class="breadcrumb-item">Master Data</li>
-        <li class="breadcrumb-item active">Category</li>
+        <li class="breadcrumb-item active">Order</li>
     </ol>
     </nav>
-</div><!-- End Page Title -->
+</div>
+
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 
 <section class="section dashboard">
     <div class="row">
@@ -35,27 +42,40 @@
                 </div>
     
                 <div class="card-body">
-                    <h5 class="card-title">Recent Product <span>| Today</span></h5>
+                    <h5 class="card-title">Recent Order <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
-                        <button class="btn btn-sm btn-primary mb-2"><i class="bi bi-plus"></i>Add Category</button>
+                        <div>
+                            <a class="btn btn-sm btn-primary mb-2"  ><i class="bi bi-plus-lg"></i> Add Order</a>
+                        </div>
+
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Photo</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">Customer</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @foreach ($order_details as $order)
                         <tr>
-                            <th scope="row"><a href="#">#{{ $category->id}}</a></th>
-                            <td>{{ $category->name}}</td>
-                            <td>{{ $category->photo}}</td>
+                            <th scope="row"><a href="#">#{{ $order->id}}</a></th>
+                            <td>{{ $order->user_id}}</td>
+                            <td>{{ $order->products_id}}</td>
+                            <td>{{ $order->total_order}}</td>
+                            <td>{{ $order->total_price}}</td>
                             <td>
-                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button> |
-                                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button> |
-                                <button class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></button> 
+                                <form method="POST" action="">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Delete This Order?')"><i class="bi bi-trash"></i></button> |
+                                    <a class="btn btn-sm btn-warning" href="{{  url('admin/order-edit',$order->id) }}"><i class="bi bi-pencil"></i></a> |
+                                    <a class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a> 
+
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -67,7 +87,7 @@
                 </div>
             </div><!-- End Recent Sales -->
     
-            <!-- Top Selling -->
+            {{-- <!-- Top Selling -->
             <div class="col-12">
                 <div class="card top-selling overflow-auto">
     
@@ -140,11 +160,10 @@
     
                 </div>
             </div><!-- End Top Selling -->
-    
+    --}}
             </div>
         </div>
     </div>
 </section>
-
 
 @endsection

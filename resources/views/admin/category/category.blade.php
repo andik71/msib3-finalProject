@@ -1,15 +1,22 @@
 @extends('admin.index')
 @section('content')
 <div class="pagetitle">
-    <h1>List Product</h1>
+    <h1>List Category</h1>
     <nav>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         <li class="breadcrumb-item">Master Data</li>
-        <li class="breadcrumb-item active">Product</li>
+        <li class="breadcrumb-item active">Category</li>
     </ol>
     </nav>
 </div><!-- End Page Title -->
+
+@if ($message = Session::get('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 
 <section class="section dashboard">
     <div class="row">
@@ -35,62 +42,40 @@
                 </div>
     
                 <div class="card-body">
-                    <h5 class="card-title">Recent Product <span>| Today</span></h5>
+                    <h5 class="card-title">Recent Category <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
-                        <button class="btn btn-sm btn-primary mb-2"><i class="bi bi-plus-lg"></i> Add Product</button>
+                        <a class="btn btn-sm btn-primary mb-2" href="{{ route('category.create') }}"><i class="bi bi-plus"></i>Add Category</a>
                     <thead>
                         <tr>
-                        <th scope="col">Code</th>
+                        <th scope="col">#</th>
                         <th scope="col">Category</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stok</th>
-                        <th scope="col">Sold</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($categories as $category)
                         <tr>
-                            <th scope="row"><a href="#">#{{ $product->code}}</a></th>
-                            <td>{{ $product->category->name}}</td>
-                            <td><a href="#" class="text-primary">{{ $product->desc }}</a></td>
-                            <td><a href="#" class="text-primary fw-bold">{{ $product->name }}</a></td>
-                            <td>Rp. {{ number_format($product->price) }}</td>
-                            <td>{{ $product->stok }}</td>
-                            <td>{{ $product->sold }}</td>
+                            <th scope="row"><a href="#">#{{ $category->id}}</a></th>
+                            <td>{{ $category->name}}</td>
                             <td>
-                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></a></i></button> |
-                                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button> |
-                                <button type="button" class="btn btn-sm btn-primary"  data-bs-toggle="modal" data-bs-target="#detailModal-{{ $product->id }}"><i class="bi bi-eye"></i></button> 
+                            @empty($category->photo)
+                            <img src="{{ url('public/admin/img/nophoto.png') }}" width="35%" alt="Profile" class="rounded-circle">
+                            @else
+                            <img src="{{ url('public/admin/img')}}/{{$category->photo}}" width="70px" alt="product" class="img-thumbnail">
+                            @endempty
+                            </td>
+                            <td>
+                                <form method="POST" action=" {{ route('category.destroy',$category->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Delete This Category?')"><i class="bi bi-trash"></i></button> |
+                                    <a class="btn btn-sm btn-warning"  href="{{ url('admin/category-edit',$category->id) }}" ><i class="bi bi-pencil"></i></a> |
+                                    <a class="btn btn-sm btn-primary" href="{{ route('category.show',$category->id ) }}"><i class="bi bi-eye"></i></a> 
+                                </form>
                             </td>
                         </tr>
-
-
-                        {{-- Detail Modal --}}
-                        <div class="modal fade" id="detailModal-{{ $product->id }}" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Detail Product</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <h6><span class="text-dark"><i class="bi bi-tags-fill"></i> </span> Category  : <span class="fw-bold">{{$product->category->name}}</span> </h6>
-                                <h6><span class="text-dark"><i class="bi bi-bag-fill"></i></span> Name  : <span class="fw-bold">{{$product->name}}</span> </h6>
-                                <h6><span class="text-dark"><i class="bi bi-qr-code"></i></span> Code  : <span class="fw-bold">{{$product->code}}</span> </h6>
-                                <h6><span class="text-dark"><i class="bi bi-currency-dollar"></i></span> Price : <span class="fw-bold">Rp. {{ number_format($product->price)}}</span> </h6>
-                                <h6><span class="text-dark"><i class="bi bi-bag-check-fill"></i></span> Stok  : <span class="fw-bold">{{$product->stok}}</span> </h6>
-                                <h6><span class="text-dark"><i class="bi bi-bag-x-fill"></i></span> Sold  : <span class="fw-bold">{{$product->sold}}</span> </h6>
-                                <h6><span class="text-dark"><i class="bi bi-shop"></i></span> Store : <span class="fw-bold">{{$product->store->name}}</span> </h6>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Back</button>
-                            </div>
-                            </div>
-                        </div>
-                        </div>
                         @endforeach
                     </tbody>
                     </table>
@@ -179,5 +164,5 @@
     </div>
 </section>
 
-@include('admin.detailproduct')
+
 @endsection

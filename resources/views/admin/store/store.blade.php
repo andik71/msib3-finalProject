@@ -1,12 +1,12 @@
 @extends('admin.index')
 @section('content')
 <div class="pagetitle">
-    <h1>List Category</h1>
+    <h1>List Store</h1>
     <nav>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         <li class="breadcrumb-item">Master Data</li>
-        <li class="breadcrumb-item active">Category</li>
+        <li class="breadcrumb-item active">Store</li>
     </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -35,9 +35,9 @@
                 </div>
     
                 <div class="card-body">
-                    <h5 class="card-title">Recent Product <span>| Today</span></h5>
+                    <h5 class="card-title">Recent Store <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
-                        <button class="btn btn-sm btn-primary mb-2"><i class="bi bi-plus"></i>Add Category</button>
+                        <a class="btn btn-sm btn-primary mb-2" href="{{ route('store.create') }}"><i class="bi bi-plus"></i>Add Store</a>
                     <thead>
                         <tr>
                         <th scope="col">#</th>
@@ -55,9 +55,15 @@
                             <td>{{ $store->location}}</td>
                             <td>{{ $store->rating}}</td>
                             <td>
-                                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button> |
-                                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button> |
-                                <button class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></button> 
+                                <form method="POST" action=" {{ route('store.destroy',$store->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Delete This Store?')"><i class="bi bi-trash"></i></button> |
+                                    <a class="btn btn-sm btn-warning" href="{{  url('admin/store-edit',$store->id) }}"><i class="bi bi-pencil"></i></a> |
+                                    <a class="btn btn-sm btn-primary" href="{{ route('store.show',$store->id ) }}"><i class="bi bi-eye"></i></a> 
+
+                                </form>
                             </td>
                         </tr>
                         @endforeach
