@@ -136,7 +136,7 @@
 
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <button type="reset" class="btn btn-secondary">Reset</button>
+                        <a href="{{ url('admin/product') }}" type="reset" class="btn btn-secondary">Reset</a>
                     </div>
                 </form><!-- End Horizontal Form -->
 

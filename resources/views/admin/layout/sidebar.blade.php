@@ -28,8 +28,15 @@
 
         <li class="nav-heading">Orders</li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="" onclick="errBox()">
+            <a class="nav-link collapsed" href="{{ url('/admin/orders') }}">
                 <i class="bi bi-layout-text-window-reverse"></i><span>Orders</span></i>
+            </a>
+        </li><!-- End Store Page Nav -->
+
+        <li class="nav-heading">Transactions</li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ url('/admin/transaction') }}">
+                <i class="bi bi-layout-text-window-reverse"></i><span>Transaction</span></i>
             </a>
         </li><!-- End Store Page Nav -->
 

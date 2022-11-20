@@ -1,7 +1,7 @@
 @extends('admin.index')
 @section('content')
 <div class="pagetitle">
-    <h1>List Order</h1>
+    <h1>List Orders</h1>
     <nav>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -42,37 +42,37 @@
                 </div>
     
                 <div class="card-body">
-                    <h5 class="card-title">Recent Order <span>| Today</span></h5>
+                    <h5 class="card-title">Recent Orders <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
                         <div>
-                            <a class="btn btn-sm btn-primary mb-2"  ><i class="bi bi-plus-lg"></i> Add Order</a>
+                            <a class="btn btn-sm btn-primary mb-2"  ><i class="bi bi-plus-lg"></i> Add Orders</a>
                         </div>
 
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Customer</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Qty</th>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Product Purchased</th>
+                        <th scope="col">Total Order</th>
                         <th scope="col">Total Price</th>
                         <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($order_details as $order)
+                        @foreach ($orders as $order)
                         <tr>
-                            <th scope="row"><a href="#">#{{ $order->id}}</a></th>
-                            <td>{{ $order->user_id}}</td>
-                            <td>{{ $order->products_id}}</td>
-                            <td>{{ $order->total_order}}</td>
-                            <td>{{ $order->total_price}}</td>
+                            <th scope="row"><a href="#">{{ $order->id}}</a></th>
+                            <td>{{ $order->checkout_id}}</td>
+                            <td>{{ $order->products->name}}</td>
+                            <td>{{ $order->order_quantity}}</td>
+                            <td>Rp.{{ number_format($order->total_price) }}</td>
                             <td>
-                                <form method="POST" action="">
+                                <form method="POST" action=" {{ route('orders.destroy',$order->id) }}">
                                     @csrf
                                     @method('DELETE')
 
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Delete This Order?')"><i class="bi bi-trash"></i></button> |
-                                    <a class="btn btn-sm btn-warning" href="{{  url('admin/order-edit',$order->id) }}"><i class="bi bi-pencil"></i></a> |
+                                    <a class="btn btn-sm btn-warning" href="{{  url('admin/orders-edit',$order->id) }}"><i class="bi bi-pencil"></i></a> |
                                     <a class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a> 
 
                                 </form>

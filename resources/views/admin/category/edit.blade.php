@@ -6,7 +6,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                 <li class="breadcrumb-item">Master Data</li>
-                <li class="breadcrumb-item"><a href="{{ url('/admin/category') }}">List Category</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('/admin/category') }}">Category</a></li>
                 <li class="breadcrumb-item active">Edit Category</li>
             </ol>
         </nav>
@@ -51,7 +51,7 @@
                                     @csrf
                                     @method('PUT')
                                     <div class="row mb-3">
-                                        <label for="productImage" class="col-md-4 col-lg-3 col-form-label">Product
+                                        <label for="productImage" class="col-md-4 col-lg-3 col-form-label">Category
                                             Image</label>
                                         <div class="col-md-3 col-lg-4">
                                             @if (!empty($category->photo))
@@ -80,6 +80,7 @@
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <a href="{{ url('admin/category') }}" type="reset" class="btn btn-secondary">Reset</a>
                                     </div>
                                 </form><!-- End Profile Edit Form -->
                             </div>

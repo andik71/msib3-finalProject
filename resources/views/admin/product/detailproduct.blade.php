@@ -7,8 +7,8 @@
     <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
     <li class="breadcrumb-item">Master Data</li>
-    <li class="breadcrumb-item"><a href="{{ url('/admin/product') }}">List Product</a></li>
-    <li class="breadcrumb-item active">Product Detailst</li>
+    <li class="breadcrumb-item"><a href="{{ url('/admin/product') }}">Product</a></li>
+    <li class="breadcrumb-item active">Product Details</li>
     </ol>
 </nav>
 </div><!-- End Page Title -->
@@ -90,6 +90,7 @@
 
             </div>
 
+            <a class="btn btn-primary btn-md mt-2" href="{{ url('admin/product') }}"><i class="bi bi-arrow-left"></i> Back</a>
 
         </div><!-- End Bordered Tabs -->
 

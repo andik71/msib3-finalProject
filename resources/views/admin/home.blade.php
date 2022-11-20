@@ -40,7 +40,7 @@
                         <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                        <h6>145</h6>
+                        <h6>{{ $sale }}</h6>
                         <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span>
     
                     </div>
@@ -75,7 +75,7 @@
                         <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                        <h6>$3,264</h6>
+                        <h6>Rp. {{ number_format($revenue) }} </h6>
                         <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span>
     
                     </div>
@@ -111,7 +111,7 @@
                         <i class="bi bi-people"></i>
                     </div>
                     <div class="ps-3">
-                        <h6>1244</h6>
+                        <h6>{{ $customer }}</h6>
                         <span class="text-danger small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">decrease</span>
     
                     </div>
@@ -146,17 +146,23 @@
                     <div id="reportsChart"></div>
     
                     <script>
+                    let sales = [@foreach($sales as $sale) '{{$sale->id}}', @endforeach];
+                    let revenues = [@foreach($revenues as $revenue) '{{$revenue->total_price,}}', @endforeach];
+                    let id = [@foreach($revenues as $revenue) '{{$revenue->id,}}', @endforeach];
+                    let user = [@foreach($revenues as $revenue) '{{$revenue->users_id,}}', @endforeach];
+                    let customers = [@foreach($customers as $customer) '{{$customer->id}}', @endforeach];
+
                     document.addEventListener("DOMContentLoaded", () => {
                         new ApexCharts(document.querySelector("#reportsChart"), {
                         series: [{
                             name: 'Sales',
-                            data: [31, 40, 28, 51, 42, 82, 56],
+                            data: revenues
                         }, {
                             name: 'Revenue',
-                            data: [11, 32, 45, 32, 34, 52, 41]
+                            data: id
                         }, {
                             name: 'Customers',
-                            data: [15, 11, 32, 18, 9, 24, 11]
+                            data: user
                         }],
                         chart: {
                             height: 350,

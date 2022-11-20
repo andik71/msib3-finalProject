@@ -8,7 +8,7 @@
     <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
     <li class="breadcrumb-item">Master Data</li>
     <li class="breadcrumb-item"><a href="{{ url('/admin/product') }}">List Category</a></li>
-    <li class="breadcrumb-item active">Category Detailst</li>
+    <li class="breadcrumb-item active">Category Details</li>
     </ol>
 </nav>
 </div><!-- End Page Title -->
@@ -56,6 +56,7 @@
 
             </div>
 
+            <a class="btn btn-primary btn-md mt-2" href="{{ url('admin/category') }}"><i class="bi bi-arrow-left"></i> Back</a>
 
         </div><!-- End Bordered Tabs -->
 

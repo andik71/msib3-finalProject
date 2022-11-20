@@ -56,7 +56,7 @@
                     <tbody>
                         @foreach ($categories as $category)
                         <tr>
-                            <th scope="row"><a href="#">#{{ $category->id}}</a></th>
+                            <th scope="row"><a href="#">{{ $category->id}}</a></th>
                             <td>{{ $category->name}}</td>
                             <td>
                             @empty($category->photo)

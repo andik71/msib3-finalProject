@@ -6,7 +6,7 @@
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                 <li class="breadcrumb-item">Master Data</li>
-                <li class="breadcrumb-item"><a href="{{ url('/admin/store') }}">List Store</a></li>
+                <li class="breadcrumb-item"><a href="{{ url('/admin/store') }}">Store</a></li>
                 <li class="breadcrumb-item active">Edit Store</li>
             </ol>
         </nav>
@@ -75,6 +75,7 @@
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <a href="{{ url('admin/store') }}" type="reset" class="btn btn-secondary">Reset</a>
                                     </div>
                                 </form><!-- End Profile Edit Form -->
                             </div>

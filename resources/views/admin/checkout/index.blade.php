@@ -1,12 +1,12 @@
 @extends('admin.index')
 @section('content')
 <div class="pagetitle">
-    <h1>List Product</h1>
+    <h1>List Transaction</h1>
     <nav>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
         <li class="breadcrumb-item">Master Data</li>
-        <li class="breadcrumb-item active">Product</li>
+        <li class="breadcrumb-item active">Transaction</li>
     </ol>
     </nav>
 </div>
@@ -42,54 +42,44 @@
                 </div>
     
                 <div class="card-body">
-                    <h5 class="card-title">Recent Product <span>| Today</span></h5>
+                    <h5 class="card-title">Recent Transaction <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
                         <div>
-                            <a class="btn btn-sm btn-primary mb-2 me-1" href="{{ route('product.create') }}" ><i class="bi bi-plus-lg"></i> Add Product</a>
-                            <a class="btn btn-sm btn-danger mb-2 me-1" href="{{ url('admin/product-generate-pdf') }}" target="_blank" ><i class="bi bi-file-earmark-pdf-fill"></i> Export PDF</a>
-                            <a class="btn btn-sm btn-success mb-2" href="{{ url('admin/product-generate-csv') }}" target="_blank" ><i class="bi bi-file-earmark-excel-fill"></i> Export Excel</a>
+                            <a class="btn btn-sm btn-primary mb-2"  ><i class="bi bi-plus-lg"></i> Add Transaction</a>
                         </div>
+
                     <thead>
                         <tr>
-                        <th scope="col">Code</th>
-                        <th scope="col">Photo</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Stok</th>
-                        <th scope="col">Sold</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Transaction ID</th>
+                        <th scope="col">Billed To</th>
+                        <th scope="col">Shipped To</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $product)
+                        @foreach ($checkouts as $checkout)
                         <tr>
-                            <th scope="row"><a href="#">{{ $product->code}}</a></th>
+                            <th scope="row"><a href="#">{{ $checkout->id}}</a></th>
+                            <td>{{ $checkout->code}}</td>
+                            <td>{{ $checkout->name}}</td>
+                            <td>{{ $checkout->address}}</td>
+                            <td>Rp.{{ number_format($checkout->total_price) }}</td>
+                            <td>{{ $checkout->status}}</td>
                             <td>
-                            @empty($product->photo)
-                            <img src="{{ url('public/admin/img/nophoto.png') }}" width="35%" alt="product" class="rounded-circle">
-                            @else
-                            <img src="{{ url('public/admin/img')}}/{{$product->photo}}" width="70px" alt="product" class="img-thumbnail">
-                            @endempty
-                            </td>
-                            <td>{{ $product->category->name}}</td>
-                            {{-- <td><a href="#" class="text-primary">{{ $product->desc }}</a></td> --}}
-                            <td><a href="#" class="text-primary fw-bold">{{ $product->name }}</a></td>
-                            <td>Rp. {{ number_format($product->price) }}</td>
-                            <td>{{ $product->stok }}</td>
-                            <td>{{ $product->sold }}</td>
-                            <td>
-                                <form method="POST" action=" {{ route('product.destroy',$product->id) }}">
+                                <form method="POST" action="">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Delete This Product?')" ><i class="bi bi-trash"></a></i></button> |
-                                    <a class="btn btn-sm btn-warning" href="{{ url('admin/product-edit',$product->id) }}"><i class="bi bi-pencil"></i></a> |
-                                    <a class="btn btn-sm btn-primary" href="{{ route('product.show',$product->id ) }}"><i class="bi bi-eye"></i></a> 
+
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Delete This Order?')"><i class="bi bi-trash"></i></button> |
+                                    <a class="btn btn-sm btn-warning" href="{{  url('admin/transaction-edit',$checkout->id) }}"><i class="bi bi-pencil"></i></a> |
+                                    <a class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a> 
+
                                 </form>
                             </td>
                         </tr>
-
-
                         @endforeach
                     </tbody>
                     </table>

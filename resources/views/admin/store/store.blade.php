@@ -50,7 +50,7 @@
                     <tbody>
                         @foreach ($stores as $store)
                         <tr>
-                            <th scope="row"><a href="#">#{{ $store->id}}</a></th>
+                            <th scope="row"><a href="#">{{ $store->id}}</a></th>
                             <td>{{ $store->name}}</td>
                             <td>{{ $store->location}}</td>
                             <td>{{ $store->rating}}</td>
