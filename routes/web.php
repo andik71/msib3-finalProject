@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OrderDetailsController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Models\OrderDetails;
@@ -17,9 +20,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/admin', [DashboardController::class, 'index' ]);
 
 Route::resource('admin/product', ProductController::class);
 Route::get('admin/product-edit/{id}', [ProductController::class,'edit']);
+Route::get('admin/product-generate-pdf', [ProductController::class, 'generatePDF']);
+Route::get('admin/product-generate-csv', [ProductController::class, 'generateCSV']);
 
 Route::resource('admin/category', CategoryController::class);
 Route::get('admin/category-edit/{id}', [CategoryController::class, 'edit']);
@@ -27,12 +33,11 @@ Route::get('admin/category-edit/{id}', [CategoryController::class, 'edit']);
 Route::resource('admin/store', StoreController::class);
 Route::get('admin/store-edit/{id}', [StoreController::class, 'edit']);
 
-Route::resource('admin/order', OrderDetailsController::class);
-Route::get('admin/order-edit/{id}', [OrderDetailsController::class, 'edit']);
+Route::resource('admin/orders', OrdersController::class);
+Route::get('admin/orders-edit/{id}', [OrdersController::class, 'edit']);
 
-Route::get('/admin', function () {
-    return view('admin.home');
-});
+Route::resource('admin/transaction', CheckoutController::class);
+Route::get('admin/transaction-edit/{id}', [CheckoutController::class, 'edit']);
 
 //routing landingpage
 Route::get('/', function () {
