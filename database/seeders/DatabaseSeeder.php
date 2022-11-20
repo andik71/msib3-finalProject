@@ -5,7 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Category;
+use App\Models\Checkout;
 use App\Models\OrderDetails;
+use App\Models\Orders;
 use App\Models\Product;
 use App\Models\Store;
 use App\Models\User;
@@ -96,29 +98,39 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        // $user = [
-        //     [
-        //         'name' => 'Faiz',
-        //         'email' => 'alqassamf@gmail.com',
-        //         'password' => 'alqassamf123',
-        //         'address' => 'Bekasi',
-        //         'phone_number' => '089698085698',
-        //     ],
-        // ];
+        $user = [
+            [
+                'name' => 'Faiz',
+                'email' => 'alqassamf@gmail.com',
+                'password' => 'alqassamf123',
+                'address' => 'Bekasi',
+                'phone_number' => '089698085698',
+            ],
+        ];
         
-        // $order_details = [
-        //     [
-        //         'total_order' => '2',
-        //         'total_price' => '40000000',
-        //         'products_id' => '1',
-        //         'user_id' => '1',
-        //     ],
-        // ];
+        $checkout = [
+            [
+                'code' => '2',
+                'status' => 'unpaid',
+                'total_price' => '40000000',
+                'users_id' => '1',
+            ],
+        ];
+        
+        $orders = [
+            [
+                'order_quantity' => '2',
+                'total_price' => '40000000',
+                'products_id' => '1',
+                'checkout_id' => '1',
+            ],
+        ];
 
         Category::insert($category);
         Store::insert($store);
         Product::insert($products);
-        // User::insert($user);
-        // OrderDetails::insert($$order_details);
+        User::insert($user);
+        Checkout::insert($checkout);
+        Orders::insert($orders);
     }
 }
