@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProductExport;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
-use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProductController extends Controller
 {
@@ -22,7 +25,6 @@ class ProductController extends Controller
         return view('admin.product.allproduct', compact('products') );
     }
     
-
     /**
      * Show the form for creating a new resource.
      *
@@ -186,5 +188,22 @@ class ProductController extends Controller
     }
 }
 
+    public function generatePDF()
+    {
+        $product = Product::all();
 
+        $data = [
+            'date' => date('m/d/y'),
+            'products' => $product
+        ];
+
+        $pdf = Pdf::loadView('admin.product.product-pdf',$data);
+
+        return $pdf->stream('data_products.pdf');
+    }
+
+
+    public function generateCSV(){
+        return Excel::download(new ProductExport, 'data_products.xlsx');
+    }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderDetails;
+use App\Models\Checkout;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class OrderDetailsController extends Controller
+class CheckoutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +16,14 @@ class OrderDetailsController extends Controller
      */
     public function index()
     {
-        $order_details = OrderDetails::orderBy('id', 'DESC')->get();
-        return view('admin.orderdetails.index', compact('order_details'));
+        $checkouts = DB::table('checkout')
+            ->join('users', 'users.id', '=', 'checkout.users_id')
+            ->select('users.*','checkout.*')
+            ->get();
+
+        return view('admin.checkout.index', compact('checkouts'));
+
+        
     }
 
     /**
@@ -42,10 +50,10 @@ class OrderDetailsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\OrderDetails  $orderDetails
+     * @param  \App\Models\Checkout  $checkout
      * @return \Illuminate\Http\Response
      */
-    public function show(OrderDetails $orderDetails)
+    public function show(Checkout $checkout)
     {
         //
     }
@@ -53,10 +61,10 @@ class OrderDetailsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\OrderDetails  $orderDetails
+     * @param  \App\Models\Checkout  $checkout
      * @return \Illuminate\Http\Response
      */
-    public function edit(OrderDetails $orderDetails)
+    public function edit(Checkout $checkout)
     {
         //
     }
@@ -65,10 +73,10 @@ class OrderDetailsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\OrderDetails  $orderDetails
+     * @param  \App\Models\Checkout  $checkout
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OrderDetails $orderDetails)
+    public function update(Request $request, Checkout $checkout)
     {
         //
     }
@@ -76,10 +84,10 @@ class OrderDetailsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\OrderDetails  $orderDetails
+     * @param  \App\Models\Checkout  $checkout
      * @return \Illuminate\Http\Response
      */
-    public function destroy(OrderDetails $orderDetails)
+    public function destroy(Checkout $checkout)
     {
         //
     }
