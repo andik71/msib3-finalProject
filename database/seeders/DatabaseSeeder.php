@@ -106,14 +106,40 @@ class DatabaseSeeder extends Seeder
                 'address' => 'Bekasi',
                 'phone_number' => '089698085698',
             ],
+            [
+                'name' => 'Chumaedi',
+                'email' => 'Chumaedi@gmail.com',
+                'password' => 'chumaedi',
+                'address' => 'Tanggerang',
+                'phone_number' => '',
+            ],
+            [
+                'name' => 'Andika',
+                'email' => 'andika@gmail.com',
+                'password' => 'andika',
+                'address' => 'Sulawesi',
+                'phone_number' => '',
+            ],
         ];
         
         $checkout = [
             [
-                'code' => '2',
+                'code' => '1',
                 'status' => 'unpaid',
-                'total_price' => '40000000',
+                'total_price' => '20000000',
                 'users_id' => '1',
+            ],
+            [
+                'code' => '2',
+                'status' => 'pending',
+                'total_price' => '40000000',
+                'users_id' => '2',
+            ],
+            [
+                'code' => '3',
+                'status' => 'paid',
+                'total_price' => '60000000',
+                'users_id' => '3',
             ],
         ];
         
@@ -123,6 +149,18 @@ class DatabaseSeeder extends Seeder
                 'total_price' => '40000000',
                 'products_id' => '1',
                 'checkout_id' => '1',
+            ],
+            [
+                'order_quantity' => '4',
+                'total_price' => '60000000',
+                'products_id' => '2',
+                'checkout_id' => '2',
+            ],
+            [
+                'order_quantity' => '6',
+                'total_price' => '90000000',
+                'products_id' => '1',
+                'checkout_id' => '3',
             ],
         ];
 
