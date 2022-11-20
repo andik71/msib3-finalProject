@@ -5,21 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderDetails extends Model
+class Orders extends Model
 {
     use HasFactory;
 
-    protected $table = 'order_details';
+    use HasFactory;
 
-    protected $fillable = ['total_order', 'total_price', 'products_id', 'user_id'];
+    protected $table = 'orders';
+
+    protected $fillable = ['order_quantity', 'total_price', 'products_id', 'checkout_id'];
 
     public function products()
     {
         return $this->belongsTo(Product::class);
     }
-
-    public function user()
+    public function checkout()
     {
-        return $this->belongsTo(UserModel::class);
+        return $this->belongsTo(Checkout::class);
     }
 }
