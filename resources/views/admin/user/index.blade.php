@@ -1,12 +1,12 @@
 @extends('admin.index')
 @section('content')
 <div class="pagetitle">
-    <h1>List Category</h1>
+    <h1>List User</h1>
     <nav>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
         <li class="breadcrumb-item">Master Data</li>
-        <li class="breadcrumb-item active">Category</li>
+        <li class="breadcrumb-item active">Manage User</li>
     </ol>
     </nav>
 </div><!-- End Page Title -->
@@ -16,7 +16,7 @@
         <div class="col-lg-12">
             <div class="row">
     
-    
+            @if (!empty($approval))
             <!-- Recent Sales -->
             <div class="col-12">
                 <div class="card recent-sales overflow-auto">
@@ -35,38 +35,38 @@
                 </div>
     
                 <div class="card-body">
-                    <h5 class="card-title">Recent Category <span>| Today</span></h5>
+                    <h5 class="card-title">Recent User Need Approval <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
-                        <a class="btn btn-sm btn-primary mb-2" href="{{ route('category.create') }}"><i class="bi bi-plus"></i>Add Category</a>
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Photo</th>
-                        <th scope="col">Actions</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($categories as $category)
+                        @php $no = 1 @endphp
+                        @foreach ($approval as $user)
                         <tr>
-                            <th scope="row"><a href="#">{{ $category->id}}</a></th>
-                            <td>{{ $category->name}}</td>
+                            <th scope="row"><a href="#">{{$no++}}</a></th>
+                            <td>{{ $user->name}}</td>
+                            <td>{{ $user->email}}</td>
+                            <td>{{ $user->role}}</td>
+
+                            @php $active = ($user->isactive == 1) ? 'Active' : 'Need Approval'; @endphp
+                            <td>{{ $active}}</td>
                             <td>
-                            @empty($category->photo)
-                            <img src="{{ url('public/admin/img/nophoto.png') }}" width="35%" alt="Profile" class="rounded-circle">
-                            @else
-                            <img src="{{ url('public/admin/img')}}/{{$category->photo}}" width="70px" alt="product" class="img-thumbnail">
-                            @endempty
-                            </td>
-                            <td>
-                                <form method="POST" action=" {{ route('category.destroy',$category->id) }}">
+                                <form method="POST" action=" {{ route('user.destroy',$user->id) }}">
                                     @csrf
                                     @method('DELETE')
 
-                                    <input type="hidden" class="delete_id" value="{{ $category->id }}">
-                                    <button class="btn btn-sm btn-danger btndelete"><i class="bi bi-trash"></a></i></button> |
-                                    <a class="btn btn-sm btn-warning"  href="{{ url('admin/category-edit',$category->id) }}" ><i class="bi bi-pencil"></i></a> |
-                                    <a class="btn btn-sm btn-primary" href="{{ route('category.show',$category->id ) }}"><i class="bi bi-eye"></i></a> 
+                                    <input type="hidden" class="delete_id" value="{{ $user->id }}">
+                                    <button class="btn btn-sm btn-danger btndelete">Denied</button> |
+                                    <a class="btn btn-sm btn-primary" href="{{ route('user.edit',$user->id ) }}">Approve</a> 
+
                                 </form>
                             </td>
                         </tr>
@@ -78,10 +78,11 @@
     
                 </div>
             </div><!-- End Recent Sales -->
-    
-            <!-- Top Selling -->
+            @endif
+
+            <!-- Recent Sales -->
             <div class="col-12">
-                <div class="card top-selling overflow-auto">
+                <div class="card recent-sales overflow-auto">
     
                 <div class="filter">
                     <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -96,62 +97,50 @@
                     </ul>
                 </div>
     
-                <div class="card-body pb-0">
-                    <h5 class="card-title">Top Selling <span>| Today</span></h5>
-    
-                    <table class="table table-borderless">
+                <div class="card-body">
+                    <h5 class="card-title">Recent User <span>| Today</span></h5>
+                    <table class="table table-borderless datatable">
                     <thead>
                         <tr>
-                        <th scope="col">Preview</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Sold</th>
-                        <th scope="col">Revenue</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($users as $user)
                         <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                        <td>$64</td>
-                        <td class="fw-bold">124</td>
-                        <td>$5,828</td>
+                            <th scope="row"><a href="#">{{ $user->id}}</a></th>
+                            <td>{{ $user->name}}</td>
+                            <td>{{ $user->email}}</td>
+                            <td>{{ $user->role}}</td>
+
+                            @php $active = ($user->isactive == 1) ? 'Active' : 'Need Approval'; @endphp
+                            <td>{{ $active}}</td>
+                            <td>
+                                <form method="POST" action=" {{ route('user.destroy',$user->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <input type="hidden" class="delete_id" value="{{ $user->id }}">
+                                    <button class="btn btn-sm btn-danger btndelete"><i class="bi bi-trash"></a></i></button> |
+                                    <a class="btn btn-sm btn-warning" href="{{  url('admin/user-edit',$user->id) }}"><i class="bi bi-pencil"></i></a> |
+                                    <a class="btn btn-sm btn-primary" href="{{ route('user.show',$user->id ) }}"><i class="bi bi-eye"></i></a> 
+
+                                </form>
+                            </td>
                         </tr>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                        <td>$46</td>
-                        <td class="fw-bold">98</td>
-                        <td>$4,508</td>
-                        </tr>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                        <td>$59</td>
-                        <td class="fw-bold">74</td>
-                        <td>$4,366</td>
-                        </tr>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                        <td>$32</td>
-                        <td class="fw-bold">63</td>
-                        <td>$2,016</td>
-                        </tr>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                        <td>$79</td>
-                        <td class="fw-bold">41</td>
-                        <td>$3,239</td>
-                        </tr>
+                        @endforeach
                     </tbody>
                     </table>
     
                 </div>
     
                 </div>
-            </div><!-- End Top Selling -->
+            </div><!-- End Recent Sales -->
     
             </div>
         </div>
@@ -175,7 +164,7 @@
 
             swal({
                     title: "Are You Sure?",
-                    text: "After Deleted, You can't restore this Category again!",
+                    text: "After Deleted, You can't restore this User again!",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,
@@ -189,7 +178,7 @@
                         };
                         $.ajax({
                             type: "DELETE",
-                            url: 'category/destroy/' + deleteid,
+                            url: 'user/destroy/' + deleteid,
                             data: data,
                             success: function (response) {
                                 swal(response.status, {

@@ -148,5 +148,4 @@
     </div>
 </section>
 
-@include('admin.detailproduct')
 @endsection

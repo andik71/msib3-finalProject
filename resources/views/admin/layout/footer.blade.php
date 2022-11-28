@@ -17,6 +17,10 @@
 <script src="{{ asset('/public/admin/vendor/simple-datatables/simple-datatables.js') }} "></script>
 <script src="{{ asset('/public/admin/vendor/tinymce/tinymce.min.js') }} "></script>
 <script src="{{ asset('/public/admin/vendor/php-email-form/validate.js') }} "></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- Template Main JS File -->
 <script src="{{ asset('/public/admin/js/main.js') }} "></script>

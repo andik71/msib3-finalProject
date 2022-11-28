@@ -45,7 +45,9 @@
                     <h5 class="card-title">Recent Transaction <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
                         <div>
-                            <a class="btn btn-sm btn-primary mb-2"  ><i class="bi bi-plus-lg"></i> Add Transaction</a>
+                            <a class="btn btn-sm btn-primary mb-2" href="{{ route('transaction.create') }}"  ><i class="bi bi-plus-lg"></i> Add Orders</a>
+                            <a class="btn btn-sm btn-danger mb-2 me-1" href="{{ url('admin/transaction-generate-pdf') }}" target="_blank" ><i class="bi bi-file-earmark-pdf-fill"></i> Export to PDF</a>
+                            <a class="btn btn-sm btn-success mb-2" href="{{ url('admin/transaction-generate-csv') }}" target="_blank" ><i class="bi bi-file-earmark-excel-fill"></i> Export to Excel</a>
                         </div>
 
                     <thead>
@@ -69,13 +71,14 @@
                             <td>Rp.{{ number_format($checkout->total_price) }}</td>
                             <td>{{ $checkout->status}}</td>
                             <td>
-                                <form method="POST" action="">
+                                <form method="POST" action="{{ route('transaction.destroy',$checkout->id) }}">
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Delete This Order?')"><i class="bi bi-trash"></i></button> |
+                                    <input type="hidden" class="delete_id" value="{{ $checkout->id }}">
+                                    <button type="submit" class="btn btn-sm btn-danger btndelete"><i class="bi bi-trash"></i></button> |
                                     <a class="btn btn-sm btn-warning" href="{{  url('admin/transaction-edit',$checkout->id) }}"><i class="bi bi-pencil"></i></a> |
-                                    <a class="btn btn-sm btn-primary"><i class="bi bi-eye"></i></a> 
+                                    <a class="btn btn-sm btn-primary" href="{{ route('transaction.show',$checkout->id ) }}"><i class="bi bi-eye"></i></a> 
 
                                 </form>
                             </td>
@@ -88,84 +91,59 @@
     
                 </div>
             </div><!-- End Recent Sales -->
-    
-            {{-- <!-- Top Selling -->
-            <div class="col-12">
-                <div class="card top-selling overflow-auto">
-    
-                <div class="filter">
-                    <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                        <h6>Filter</h6>
-                    </li>
-    
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                    </ul>
-                </div>
-    
-                <div class="card-body pb-0">
-                    <h5 class="card-title">Top Selling <span>| Today</span></h5>
-    
-                    <table class="table table-borderless">
-                    <thead>
-                        <tr>
-                        <th scope="col">Preview</th>
-                        <th scope="col">Product</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Sold</th>
-                        <th scope="col">Revenue</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-1.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Ut inventore ipsa voluptas nulla</a></td>
-                        <td>$64</td>
-                        <td class="fw-bold">124</td>
-                        <td>$5,828</td>
-                        </tr>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-2.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Exercitationem similique doloremque</a></td>
-                        <td>$46</td>
-                        <td class="fw-bold">98</td>
-                        <td>$4,508</td>
-                        </tr>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-3.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Doloribus nisi exercitationem</a></td>
-                        <td>$59</td>
-                        <td class="fw-bold">74</td>
-                        <td>$4,366</td>
-                        </tr>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-4.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Officiis quaerat sint rerum error</a></td>
-                        <td>$32</td>
-                        <td class="fw-bold">63</td>
-                        <td>$2,016</td>
-                        </tr>
-                        <tr>
-                        <th scope="row"><a href="#"><img src="assets/img/product-5.jpg" alt=""></a></th>
-                        <td><a href="#" class="text-primary fw-bold">Sit unde debitis delectus repellendus</a></td>
-                        <td>$79</td>
-                        <td class="fw-bold">41</td>
-                        <td>$3,239</td>
-                        </tr>
-                    </tbody>
-                    </table>
-    
-                </div>
-    
-                </div>
-            </div><!-- End Top Selling -->
-    --}}
             </div>
         </div>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.btndelete').click(function (e) {
+            e.preventDefault();
+
+            var deleteid = $(this).closest("tr").find('.delete_id').val();
+
+            swal({
+                    title: "Are You Sure?",
+                    text: "After Deleted, You can't restore this Transaction again!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        var data = {
+                            "_token": $('input[name=_token]').val(),
+                            'id': deleteid,
+                        };
+                        $.ajax({
+                            type: "DELETE",
+                            url: 'transaction/destroy/' + deleteid,
+                            data: data,
+                            success: function (response) {
+                                swal(response.status, {
+                                        icon: "success",
+                                    })
+                                    .then((result) => {
+                                        location.reload();
+                                    });
+                            }
+                        });
+                    }
+                });
+        });
+
+    });
+
+</script>
 
 @endsection

@@ -59,7 +59,8 @@
                                     @csrf
                                     @method('DELETE')
 
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are You Sure Delete This Store?')"><i class="bi bi-trash"></i></button> |
+                                    <input type="hidden" class="delete_id" value="{{ $store->id }}">
+                                    <button class="btn btn-sm btn-danger btndelete"><i class="bi bi-trash"></a></i></button> |
                                     <a class="btn btn-sm btn-warning" href="{{  url('admin/store-edit',$store->id) }}"><i class="bi bi-pencil"></i></a> |
                                     <a class="btn btn-sm btn-primary" href="{{ route('store.show',$store->id ) }}"><i class="bi bi-eye"></i></a> 
 
@@ -153,6 +154,55 @@
         </div>
     </div>
 </section>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+    $(document).ready(function () {
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.btndelete').click(function (e) {
+            e.preventDefault();
+
+            var deleteid = $(this).closest("tr").find('.delete_id').val();
+
+            swal({
+                    title: "Are You Sure?",
+                    text: "After Deleted, You can't restore this Product again!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        var data = {
+                            "_token": $('input[name=_token]').val(),
+                            'id': deleteid,
+                        };
+                        $.ajax({
+                            type: "DELETE",
+                            url: 'store/destroy/' + deleteid,
+                            data: data,
+                            success: function (response) {
+                                swal(response.status, {
+                                        icon: "success",
+                                    })
+                                    .then((result) => {
+                                        location.reload();
+                                    });
+                            }
+                        });
+                    }
+                });
+        });
+
+    });
+
+</script>
 
 @endsection

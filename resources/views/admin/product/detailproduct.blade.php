@@ -1,6 +1,6 @@
 @extends('admin.index')
 @section('content')
-
+@include('sweetalert::alert')
 <div class="pagetitle">
 <h1>Product Details</h1>
 <nav>
@@ -12,12 +12,7 @@
     </ol>
 </nav>
 </div><!-- End Page Title -->
-@if ($message = Session::get('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>{{ $message }}</strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-@endif
+
 <section class="section profile">
 <div class="row">
 
