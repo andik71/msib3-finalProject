@@ -17,7 +17,7 @@ class CreateStoreTable extends Migration
             $table->integer('id', true);
             $table->string('name', 45)->nullable();
             $table->string('location', 45)->nullable();
-            $table->integer('rating')->nullable();
+            $table->double('rating')->nullable();
         });
     }
 
