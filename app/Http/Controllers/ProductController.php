@@ -9,8 +9,8 @@ use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class ProductController extends Controller
 {
@@ -82,7 +82,8 @@ class ProductController extends Controller
             ]
         );
 
-        return redirect()->route('product.index')->with('success', 'Data Products Successfully Added');
+        Alert::success('Added Product Success', 'Data Products Successfully Added');
+        return redirect()->route('product.index');
     }
 
     /**
@@ -165,6 +166,7 @@ class ProductController extends Controller
             ]
         );
 
+        Alert::success('Update Products Success', 'Data Products Successfully Updated');
         return redirect('admin/product' . '/' . $id)->with('success', 'Data Product Succesfully Updated');
         
 
@@ -178,15 +180,12 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
-        if (!empty($product->photo)){
-            unlink('public/admin/img/' . $product->photo);
-
-        
         Product::where('id',$id)->delete();
-        return redirect()->route('product.index')->with('success','Data Product Succesfully Deleted');
+
+        return response()->json(['status' => 'Data Product Succesfully Deleted']);
+        // return redirect()->route('product.index')->with('success','Data Product Succesfully Deleted');
+    
     }
-}
 
     public function generatePDF()
     {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class StoreController extends Controller
 {
@@ -54,7 +55,9 @@ class StoreController extends Controller
             ]
         );
 
-        return redirect()->route('store.index')->with('success', 'Data Store Successfully Added');
+        Alert::success('Added Store Success', 'Data Store Successfully Added');
+
+        return redirect()->route('store.index');
     }
 
     /**
@@ -94,7 +97,7 @@ class StoreController extends Controller
         $request->validate([
             'name' => 'required|max:45',
             'location' => 'required|max:45',
-            'rating' => 'required|max:45',
+            'rating' => 'required',
         ]);
 
         DB::table('store')->where('id', $id)->update(
@@ -105,7 +108,9 @@ class StoreController extends Controller
             ]
         );
 
-        return redirect('admin/store' . '/' . $id)->with('success', 'Data Store Succesfully Updated');
+        Alert::success('Updated Store Success', 'Data Store Successfully Updated');
+
+        return redirect('admin/store' . '/' . $id);
     }
 
     /**
@@ -117,6 +122,8 @@ class StoreController extends Controller
     public function destroy($id)
     {
         Store::where('id', $id)->delete();
-        return redirect()->route('store.index')->with('success', 'Data Store Succesfully Deleted');
+        return response()->json(['status' => 'Data Store Succesfully Deleted']);
+
+        // return redirect()->route('store.index')->with('success', 'Data Store Succesfully Deleted');
     }
 }

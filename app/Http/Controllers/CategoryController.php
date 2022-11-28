@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CategoryController extends Controller
 {
@@ -58,7 +59,8 @@ class CategoryController extends Controller
             ]
         );
 
-        return redirect()->route('category.index')->with('success', 'Data Category Successfully Added');
+        Alert::success('Added Category Success', 'Data Category Successfully Added');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -122,7 +124,8 @@ class CategoryController extends Controller
             ]
         );
 
-        return redirect('admin/category' . '/' . $id)->with('success', 'Data Category Succesfully Updated');
+        Alert::success('Updated Category Success', 'Data Category Successfully Updated');
+        return redirect('admin/category' . '/' . $id);
     }
 
     /**
@@ -133,13 +136,13 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        Category::find($id);
         
-        if (!empty($category->photo)) {
-            unlink('public/admin/img/' . $category->photo);
-        }else{
-            Category::where('id', $id)->delete();
-            return redirect()->route('category.index')->with('success', 'Data Category Succesfully Deleted');
-    }
+        Category::where('id', $id)->delete();
+        return response()->json(['status' => 'Data Category Succesfully Deleted']);
+
+
+        return redirect()->route('category.index')->with('success', 'Data Category Succesfully Deleted');
+    
 }
 }

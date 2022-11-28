@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+
     public function index(){
         $sale = Checkout::count();
         $sales = DB::table('checkout')->select('id')->get();
