@@ -18,7 +18,7 @@ class ProductExport implements FromCollection, WithHeadings
         $product = DB::table('products')
                 ->join('category','category.id','=','products.category_id')
                 ->join('store','store.id','=','products.store_id')
-                ->select('products.id','products.code','products.name AS product','products.desc','products.price','products.stok',
+                ->select('products.id','products.name AS product','products.desc','products.price','products.stok',
                         'products.sold','products.photo','category.name AS category','store.name AS shop')->get();
 
         return $product;
@@ -26,6 +26,6 @@ class ProductExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        return ['No', 'Code', 'Product', 'Description', 'Price', 'Stok', 'Sold', 'Image', 'Category', 'Store'  ];
+        return ['No', 'Product', 'Description', 'Price', 'Stok', 'Sold', 'Image', 'Category', 'Store'  ];
     }
 }

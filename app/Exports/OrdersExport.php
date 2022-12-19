@@ -15,22 +15,17 @@ class OrdersExport implements FromCollection, WithHeadings
     public function collection()
     {
 
-        $product = DB::table('orders')
-        ->join('products', 'products.id', '=', 'orders.products_id')
-        ->join('checkout', 'checkout.id', '=', 'orders.checkout_id')
-        ->select(
-            'orders.id',
-            'checkout.code',
-            'products.name',
-            'orders.order_quantity',
-            'orders.total_price',
-        )->get();
+        $order = DB::table('orders')
+        ->join('users', 'orders.users_id', '=', 'users.id')
+        ->join('products', 'orders.products_id', '=', 'products.id')
+        ->select('orders.id', 'users.name', 'products.name as product','orders.order_quantity','orders.total_price')
+        ->orderBy('orders.id', 'DESC')->get();
 
-        return $product;
+        return $order;
     }
 
     public function headings(): array
     {
-        return ['No', 'Order ID', 'Product Purchased', 'Total Order', 'Total Price'];
+        return ['Order ID', 'Billed TO', 'Product Purchased', 'Total Order', 'Total Price'];
     }
 }

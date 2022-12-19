@@ -14,7 +14,9 @@ class AddForeignKeysToCheckoutTable extends Migration
     public function up()
     {
         Schema::table('checkout', function (Blueprint $table) {
+            $table->foreign(['orders_id'], 'fk_checkout_orders1')->references(['id'])->on('orders')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign(['users_id'], 'fk_checkout_users1')->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+
         });
     }
 
@@ -26,7 +28,7 @@ class AddForeignKeysToCheckoutTable extends Migration
     public function down()
     {
         Schema::table('checkout', function (Blueprint $table) {
-            $table->dropForeign('fk_checkout_user1');
+            $table->dropForeign('fk_checkout_orders1');
         });
     }
 }

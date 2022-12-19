@@ -22,4 +22,5 @@ class Checkout extends Model
     {
         return $this->hasMany(Orders::class);
     }
+
 }

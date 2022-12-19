@@ -6,8 +6,8 @@
     <div class="col-md-6 m-auto text-center">
         <h1 class="h1">Contact Us</h1>
         <p>
-            Proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            Lorem ipsum dolor sit amet.
+            Let us know how we can make computerpedia better.
+            Help us to improve our site!
         </p>
     </div>
 </div>
@@ -16,7 +16,7 @@
 <div id="mapid" style="width: 100%; height: 300px;"></div>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script>
-    var mymap = L.map('mapid').setView([-23.013104, -43.394365, 13], 13);
+    var mymap = L.map('mapid').setView([-6.352751269780093, 106.8324910549466], 13);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
         maxZoom: 18,
@@ -28,8 +28,8 @@
         zoomOffset: -1
     }).addTo(mymap);
 
-    L.marker([-23.013104, -43.394365, 13]).addTo(mymap)
-        .bindPopup("<b>Zay</b> eCommerce Template<br />Location.").openPopup();
+    L.marker([-6.352751269780093, 106.8324910549466]).addTo(mymap)
+        .bindPopup("<b>Computerpedia</b> eCommerce <br />Location.").openPopup();
 
     mymap.scrollWheelZoom.disable();
     mymap.touchZoom.disable();

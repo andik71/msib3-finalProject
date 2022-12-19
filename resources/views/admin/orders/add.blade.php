@@ -36,14 +36,14 @@
                     @csrf
 
                     <div class="row mb-3">
-                    <label for="inputName" class="col-sm-2 col-form-label">Order ID</label>
+                    <label for="inputName" class="col-sm-2 col-form-label">Billed To</label>
                         <div class="col-sm-10">
                             <div class="input-group">
                                 <span class="input-group-text" ><i class="bi bi-upc"></i></span>
-                                <select class="form-select" name="checkout_id" id="">
-                                    <option>--Select Order ID--</option>
-                                    @foreach ($checkout as $cek)
-                                        <option value="{{ $cek->id }}"> {{ $cek->code}}</option>
+                                <select class="form-select" name="users_id">
+                                    <option>--Select Bill To--</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}"> {{ $user->name}}</option>
                                     @endforeach
                                 </select>
                             </div>

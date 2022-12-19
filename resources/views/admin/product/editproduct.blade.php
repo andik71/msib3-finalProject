@@ -70,14 +70,6 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="productCode" class="col-md-4 col-lg-3 col-form-label">Product Code</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="code" id="productCode" type="text" class="form-control"
-                                                value="{{ $product->code }}">
-                                        </div>
-                                    </div>
-
-                                    <div class="row mb-3">
                                         <label for="productName" class="col-md-4 col-lg-3 col-form-label">Product Name</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="name" id="productName" type="text" class="form-control"

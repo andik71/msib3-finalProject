@@ -36,11 +36,16 @@
                     @csrf
 
                     <div class="row mb-3">
-                    <label for="inputName" class="col-sm-2 col-form-label">Transaction ID</label>
+                    <label for="inputName" class="col-sm-2 col-form-label">Trancation Id</label>
                         <div class="col-sm-10">
                             <div class="input-group">
-                                <span class="input-group-text" ><i class="bi bi-upc"></i></span>
-                                <input type="text" name="code" class="form-control" id="inputText">
+                                <span class="input-group-text" ><i class="bi bi-receipt"></i></span>
+                                <select class="form-select" name="orders_id" id="">
+                                    <option>--Select Trancation Id--</option>
+                                    @foreach ($orders as $order)
+                                        <option value="{{ $order->id }}"> {{ $order->id}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -51,11 +56,12 @@
                             <div class="input-group">
                                 <span class="input-group-text" ><i class="bi bi-receipt"></i></span>
                                 <select class="form-select" name="users_id" id="">
-                                    <option>--Select Order ID--</option>
+                                    <option>--Select Bill To--</option>
                                     @foreach ($users as $user)
                                         <option value="{{ $user->id }}"> {{ $user->name}}</option>
                                     @endforeach
                                 </select>
+
                             </div>
                         </div>
                     </div>

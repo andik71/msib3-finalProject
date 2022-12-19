@@ -38,7 +38,7 @@
 
                             <li class="nav-item">
                                 <a class="nav-link active btn" href="{{ url('admin/category-edit', $category->id) }}">Edit
-                                    Product</a>
+                                    Category</a>
                             </li>
 
                         </ul>

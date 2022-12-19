@@ -45,7 +45,7 @@
                     <h5 class="card-title">Recent Orders <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
                         <div>
-                            <a class="btn btn-sm btn-primary mb-2" href="{{ route('orders.create') }}"  ><i class="bi bi-plus-lg"></i> Add Orders</a>
+                            {{-- <a class="btn btn-sm btn-primary mb-2" href="{{ route('orders.create') }}"  ><i class="bi bi-plus-lg"></i> Add Orders</a> --}}
                             <a class="btn btn-sm btn-danger mb-2 me-1" href="{{ url('admin/orders-generate-pdf') }}" target="_blank" ><i class="bi bi-file-earmark-pdf-fill"></i> Export to PDF</a>
                             <a class="btn btn-sm btn-success mb-2" href="{{ url('admin/orders-generate-csv') }}" target="_blank" ><i class="bi bi-file-earmark-excel-fill"></i> Export to Excel</a>
                         </div>
@@ -53,7 +53,7 @@
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Order ID</th>
+                        <th scope="col">Billed To</th>
                         <th scope="col">Product Purchased</th>
                         <th scope="col">Total Order</th>
                         <th scope="col">Total Price</th>
@@ -61,11 +61,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $no = 1;
+                        @endphp
                         @foreach ($orders as $order)
                         <tr>
-                            <th scope="row"><a href="#">{{ $order->id}}</a></th>
-                            <td>{{ $order->checkout_id}}</td>
-                            <td>{{ $order->products->name}}</td>
+                            <th scope="row"><a href="#">{{ $no++}}</a></th>
+                            <td>{{ $order->name}}</td>
+                            <td>{{ $order->product}}</td>
                             <td>{{ $order->order_quantity}}</td>
                             <td>Rp.{{ number_format($order->total_price) }}</td>
                             <td>
@@ -109,6 +112,7 @@
             e.preventDefault();
 
             var deleteid = $(this).closest("tr").find('.delete_id').val();
+            console.log(deleteid);
 
             swal({
                     title: "Are You Sure?",

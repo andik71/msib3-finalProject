@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,11 +48,22 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function checkout()
+    public function orders()
     {
-        return $this->hasMany(Checkout::class);
+        return $this->hasMany(Orders::class);
+    }
+
+    public function user()
+    {
+        return $this->hasMany(User::class);
     }
 
 
-    
+    // protected function role(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) =>  ["admin", "manager", "staff"][$value],
+    //     );
+    // }
+
 }

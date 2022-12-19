@@ -4,19 +4,19 @@
             <div class="row">
 
                 <div class="col-md-4 pt-5">
-                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Zay Shop</h2>
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Computerpedia</h2>
                     <ul class="list-unstyled text-light footer-link-list">
                         <li>
                             <i class="fas fa-map-marker-alt fa-fw"></i>
-                            123 Consectetur at ligula 10660
+                            Jl. Raya Lenteng Agung No.20, RT.4/RW.5, Srengseng Sawah, Kec. Jagakarsa, Kota Jakarta Selatan.
                         </li>
                         <li>
                             <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                            <a class="text-decoration-none" href="tel:010-020-0340"> 0813-1980-6335</a>
                         </li>
                         <li>
                             <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                            <a class="text-decoration-none" href="mailto:info@company.com">computerpedia@gmail.com</a>
                         </li>
                     </ul>
                 </div>
@@ -24,19 +24,16 @@
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Products</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">PC All In One</a></li>
+                        <li><a class="text-decoration-none" href="#">Smartphone</a></li>
+                        <li><a class="text-decoration-none" href="#">Laptop</a></li>
                     </ul>
                 </div>
 
                 <div class="col-md-4 pt-5">
                     <h2 class="h2 text-light border-bottom pb-3 border-light">Further Info</h2>
                     <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" target="_blank" href="https://documenter.getpostman.com/view/17768137/2s8YzZPJa9">API Documentation</a></li>
                         <li><a class="text-decoration-none" href="#">Home</a></li>
                         <li><a class="text-decoration-none" href="#">About Us</a></li>
                         <li><a class="text-decoration-none" href="#">Shop Locations</a></li>
@@ -82,8 +79,7 @@
                 <div class="row pt-2">
                     <div class="col-12">
                         <p class="text-left text-light">
-                            Copyright &copy; 2021 Company Name 
-                            | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                            Copyright &copy; 2022 Computerpedia 
                         </p>
                     </div>
                 </div>
@@ -102,7 +98,7 @@
     <!-- End Script -->
 
     <!-- Start Slider Script -->
-    <script src="{{ asset('assets/js/slick.min.js') }} "></script>
+    <script src="{{ asset('assets/js/slick.min.js') }}" defer></script>
     <script>
         $('#carousel-related-product').slick({
             infinite: true,

@@ -26,7 +26,7 @@
             <li class="nav-item">
             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
             </li>
-
+        
             <li class="nav-item">
             <a class="nav-link btn" href="{{ url('admin/orders-edit',$orders->id)}}">Edit Orders</a>
             </li>
@@ -39,18 +39,18 @@
 
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-6">
-                    <img src="{{ url('/public/admin/img')}}/{{ $orders->products->photo}}" alt="Profile" class="img-thumbnail">
+                    <img src="{{ url('/public/admin/img')}}/{{ $orders->photo}}" alt="Profile" class="img-thumbnail">
                 </div>
             </div>    
 
             <div class="row">
-                <div class="col-lg-3 col-md-4 label ">Orders ID</div>
-                <div class="col-lg-9 col-md-8 fw-bold">{{ $orders->checkout_id }}</div>
+                <div class="col-lg-3 col-md-4 label ">Billed To</div>
+                <div class="col-lg-9 col-md-8 fw-bold">{{ $orders->name}}</div>
             </div>
 
             <div class="row">
                 <div class="col-lg-3 col-md-4 label ">Product Purchased</div>
-                <div class="col-lg-9 col-md-8 fw-bold">{{ $orders->products->name }}</div>
+                <div class="col-lg-9 col-md-8 fw-bold">{{ $orders->product }}</div>
             </div>
 
             <div class="row">

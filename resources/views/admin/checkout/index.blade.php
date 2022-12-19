@@ -45,7 +45,7 @@
                     <h5 class="card-title">Recent Transaction <span>| Today</span></h5>
                     <table class="table table-borderless datatable">
                         <div>
-                            <a class="btn btn-sm btn-primary mb-2" href="{{ route('transaction.create') }}"  ><i class="bi bi-plus-lg"></i> Add Orders</a>
+                            {{-- <a class="btn btn-sm btn-primary mb-2" href="{{ route('transaction.create') }}"  ><i class="bi bi-plus-lg"></i> Add Orders</a> --}}
                             <a class="btn btn-sm btn-danger mb-2 me-1" href="{{ url('admin/transaction-generate-pdf') }}" target="_blank" ><i class="bi bi-file-earmark-pdf-fill"></i> Export to PDF</a>
                             <a class="btn btn-sm btn-success mb-2" href="{{ url('admin/transaction-generate-csv') }}" target="_blank" ><i class="bi bi-file-earmark-excel-fill"></i> Export to Excel</a>
                         </div>
@@ -65,7 +65,7 @@
                         @foreach ($checkouts as $checkout)
                         <tr>
                             <th scope="row"><a href="#">{{ $checkout->id}}</a></th>
-                            <td>{{ $checkout->code}}</td>
+                            <td>{{ $checkout->orders_id}}</td>
                             <td>{{ $checkout->name}}</td>
                             <td>{{ $checkout->address}}</td>
                             <td>Rp.{{ number_format($checkout->total_price) }}</td>

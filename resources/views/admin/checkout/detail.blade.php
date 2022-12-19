@@ -39,17 +39,17 @@
 
             <div class="row">
                 <div class="col-lg-3 col-md-4 label ">Transaction ID</div>
-                <div class="col-lg-9 col-md-8 fw-bold">{{ $checkout->code }}</div>
+                <div class="col-lg-9 col-md-8 fw-bold">{{ $checkout->orders_id }}</div>
             </div>
 
             <div class="row">
                 <div class="col-lg-3 col-md-4 label ">Billed To</div>
-                <div class="col-lg-9 col-md-8 fw-bold">{{ $checkout->users_id}}</div>
+                <div class="col-lg-9 col-md-8 fw-bold">{{ $checkout->name}}</div>
             </div>
 
             <div class="row">
                 <div class="col-lg-3 col-md-4 label">Total Price</div>
-                <div class="col-lg-9 col-md-8 fw-bold">{{ $checkout->total_price }}</div>
+                <div class="col-lg-9 col-md-8 fw-bold">Rp {{ number_format( $checkout->total_price) }}</div>
             </div>
 
             <div class="row">

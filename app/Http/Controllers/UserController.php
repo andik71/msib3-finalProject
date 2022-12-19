@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -61,6 +62,28 @@ class UserController extends Controller
         return view('admin.user.profile', compact('user'));
     }
 
+    public function profile($id)
+    {
+        $user = User::find($id);
+        
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+
+            $cart = DB::table('orders')
+                ->where('users_id', '=', $id)
+                ->sum('order_quantity');
+
+            $carts = DB::table('orders')
+                ->join('products', 'products.id', '=', 'orders.products_id')
+                ->select('products.name', 'products.photo', 'orders.total_price', 'orders.order_quantity')
+                ->where('orders.users_id', '=', $id)->get();
+        } else {
+            $cart = [];
+            $carts = [];
+        }
+        return view('landingpage.profile', compact('user','cart','carts'));
+    }
+
     public function changepassword($id)
     {
         $user = User::find($id);
@@ -85,6 +108,29 @@ class UserController extends Controller
         return view('admin.user.edit-profile', [
             'user' => User::find($id)
         ]);
+    }
+
+    public function edit_profile($id)
+    {
+        $user = User::find($id);
+
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+
+            $cart = DB::table('orders')
+                ->where('users_id', '=', $id)
+                ->sum('order_quantity');
+
+            $carts = DB::table('orders')
+                ->join('products', 'products.id', '=', 'orders.products_id')
+                ->select('products.name', 'products.photo', 'orders.total_price', 'orders.order_quantity')
+                ->where('orders.users_id', '=', $id)->get();
+        } else {
+            $cart = [];
+            $carts = [];
+        }
+
+        return view('landingpage.edit-profile', compact('user','cart','carts'));
     }
 
     public function updateprofile(Request $request, $id)
@@ -125,6 +171,46 @@ class UserController extends Controller
         Alert::success('Updated User Success', 'Data User Successfully Updated');
 
         return redirect('admin/user/profile'.'/'.$id);
+    }
+
+    public function update_profile(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|max:45',
+            'email' => 'required|max:45',
+            'address' => 'required|max:45',
+            'phone_number' => 'required',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
+        ]);
+
+        $photo = DB::table('users')->select('photo')->where('id', $id)->get();
+        foreach ($photo as $p) {
+            $oldPhoto = $p->photo;
+        }
+        //------------apakah user ingin ganti foto lama-----------
+        if (!empty($request->photo)) {
+            //jika ada foto lama, hapus foto lamanya terlebih dahulu
+            if (!empty($user->photo)) unlink('public/assets/img/' . $user->photo);
+            //proses foto lama ganti foto baru
+            $fileName = $request->photo->getClientOriginalName();
+            $request->photo->move(public_path('assets/img'), $fileName);
+        } else {
+            $fileName = $oldPhoto;
+        }
+
+        DB::table('users')->where('id', $id)->update(
+            [
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'phone_number' => $request->phone_number,
+                'photo' => $fileName,
+            ]
+        );
+
+        Alert::success('Updated Profile Success', 'Data Profile Successfully Updated');
+
+        return redirect('/profile'.'/'.$id);
     }
 
     /**

@@ -9,11 +9,9 @@
 <body>
     <p>{{ $date }}</p>
     <h4 class="text-center mb-3">List Data Products</h4>
-  
     <table class="table table-bordered">
         <tr>
                 <th>#</th>
-                <th>Code</th>
                 <th>Category</th>
                 <th>Product</th>
                 <th>Price</th>
@@ -23,9 +21,7 @@
             @foreach ($products as $product)
                 <tr>
                     <th scope="row">{{ $product->id }}</></th>
-                    <th scope="row">{{ $product->code }}</></th>
                     <td>{{ $product->category->name }}</td>
-                    {{-- <td><a href="#" class="text-primary">{{ $product->desc }}</a></td> --}}
                     <th scope="row">{{ $product->name }}</></td>
                     <td>Rp. {{ number_format($product->price) }}</td>
                     <td>{{ $product->stok }}</td>
@@ -34,6 +30,6 @@
                 </tr>
             @endforeach
     </table>
-  
+
 </body>
 </html>

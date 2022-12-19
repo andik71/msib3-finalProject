@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Computerpedia</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -17,8 +17,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
         <!-- Favicons -->
-    <link href="{{ url('/public/admin/img/favicon.png') }}" rel="icon">
-    <link href="{{ url('/public/admin/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+    <link href="{{ url('/public/admin/img/logo5.png') }}" rel="icon">
+    <link href="{{ url('/public/admin/img/logo5.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">

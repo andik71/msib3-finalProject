@@ -17,13 +17,15 @@ class CreateProductsTable extends Migration
             $table->integer('id', true);
             $table->string('name', 45)->nullable();
             $table->string('desc', 500)->nullable();
-            $table->string('code', 45)->nullable();
             $table->double('price')->nullable();
             $table->string('stok', 45)->nullable();
             $table->string('sold', 45)->nullable();
             $table->string('photo', 45)->nullable();
             $table->integer('category_id')->index('fk_products_category1_idx');
             $table->integer('store_id')->index('fk_products_store1_idx');
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('created_at')->nullable();
+
         });
     }
 

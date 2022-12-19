@@ -52,14 +52,14 @@
                                     @method('PUT')
 
                                     <div class="row mb-3">
-                                        <label for="ordersCode" class="col-md-4 col-lg-3 col-form-label">Orders ID</label>
+                                        <label for="ordersCode" class="col-md-4 col-lg-3 col-form-label">Billed ID</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <select class="form-select" name="checkout_id">
-                                                <option>-- Select Orders ID --</option>
-                                                @foreach ($checkouts as $cek)
-                                                    @php $sel = ($cek->id == $cek->id) ? 'selected' : ''; @endphp
-                                                    <option value="{{ $cek->id }}" {{ $sel }}>
-                                                        {{ $cek->code }}</option>
+                                            <select class="form-select" name="users_id">
+                                                <option>-- Select Bill To --</option>
+                                                @foreach ($users as $user)
+                                                    @php $sel = ($orders->users_id == $user->id) ? 'selected' : ''; @endphp
+                                                    <option value="{{ $user->id }}" {{ $sel }}>
+                                                        {{ $user->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -71,7 +71,7 @@
                                             <select class="form-select" name="products_id">
                                                 <option>-- Select Products --</option>
                                                 @foreach ($products as $product)
-                                                    @php $sel = ($product->id == $product->id) ? 'selected' : ''; @endphp
+                                                    @php $sel = ($orders->products_id == $product->id) ? 'selected' : ''; @endphp
                                                     <option value="{{ $product->id }}" {{ $sel }}>
                                                         {{ $product->name }}</option>
                                                 @endforeach

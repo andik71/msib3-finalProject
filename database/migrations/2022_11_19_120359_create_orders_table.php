@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->integer('order_quantity')->nullable();
             $table->integer('total_price')->nullable();
             $table->integer('products_id')->index('fk_orders_products1_idx');
-            $table->integer('checkout_id')->index('fk_orders_checkout1_idx');
+            $table->integer('users_id')->index('fk_orders_users1_idx');
         });
     }
 

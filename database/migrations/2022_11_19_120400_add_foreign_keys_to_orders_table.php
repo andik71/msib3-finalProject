@@ -14,7 +14,7 @@ class AddForeignKeysToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->foreign(['checkout_id'], 'fk_orders_checkout1')->references(['id'])->on('checkout')->onUpdate('NO ACTION')->onDelete('NO ACTION');
+            $table->foreign(['users_id'], 'fk_orders_users1')->references(['id'])->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->foreign(['products_id'], 'fk_orders_products1')->references(['id'])->on('products')->onUpdate('NO ACTION')->onDelete('NO ACTION');
         });
     }
@@ -27,7 +27,7 @@ class AddForeignKeysToOrdersTable extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->dropForeign('fk_orders_checkout1');
+            $table->dropForeign('fk_orders_users1');
             $table->dropForeign('fk_orders_products1');
         });
     }

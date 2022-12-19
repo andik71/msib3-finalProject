@@ -53,16 +53,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row mb-3">
-                    <label for="inputCode" class="col-sm-2 col-form-label">Code</label>
-                    <div class="col-sm-6">
-                            <div class="input-group">
-                                <span class="input-group-text" ><i class="bi bi-qr-code"></i></span>
-                                <input type="text" name="code" class="form-control" id="inputText">
-                            </div>
-                        </div>
-                    </div>
                     
                     <div class="row mb-3">
                     <label for="inputPrice" class="col-sm-2 col-form-label">Price</label>

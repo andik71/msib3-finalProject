@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\CheckoutExport;
 use App\Models\Checkout;
+use App\Models\Orders;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -21,9 +22,13 @@ class CheckoutController extends Controller
     public function index()
     {
         $checkouts = DB::table('checkout')
-            ->join('users', 'users.id', '=', 'checkout.users_id')
-            ->select('users.*','checkout.*')
+            ->join('orders', 'checkout.orders_id', '=', 'orders.id')
+            ->join('users', 'orders.users_id', '=', 'users.id')
+            ->select('checkout.*','users.name','users.address')
+            // ->orderBy('checkout.orders_id','ASC')
             ->get();
+
+        // dd($checkouts);
 
         return view('admin.checkout.index', compact('checkouts'));
 
@@ -38,8 +43,9 @@ class CheckoutController extends Controller
     public function create()
     {
         $users = User::all();
+        $orders = Orders::all();
 
-        return view('admin.checkout.add', compact('users'));
+        return view('admin.checkout.add', compact('users','orders'));
     }
 
     /**
@@ -51,7 +57,7 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'code' => 'required|integer',
+            'orders_id' => 'required|integer',
             'status' => 'required',
             'total_price' => 'required',
             'users_id' => 'required',
@@ -59,7 +65,7 @@ class CheckoutController extends Controller
 
         DB::table('checkout')->insert(
             [
-                'code' => $request->code,
+                'orders_id' => $request->orders_id,
                 'status' => $request->status,
                 'total_price' => $request->total_price,
                 'users_id' => $request->users_id,
@@ -78,10 +84,14 @@ class CheckoutController extends Controller
      */
     public function show($id)
     {
-        $checkout = Checkout::find($id);
-        $user = User::all();
+        $checkout = DB::table('checkout')
+                    ->join('users as u', 'checkout.users_id', '=', 'u.id')
+                    ->select('u.*', 'checkout.*',)
+                    ->where('checkout.id', '=', $id)->first();
+        
+        // dd($checkout);
 
-        return view('admin.checkout.detail', compact('checkout','user'));
+        return view('admin.checkout.detail', compact('checkout','checkout'));
     }
 
     /**
@@ -108,7 +118,7 @@ class CheckoutController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => 'required|integer',
+            'orders_id' => 'required|integer',
             'status' => 'required',
             'total_price' => 'required',
             'users_id' => 'required',
@@ -116,7 +126,7 @@ class CheckoutController extends Controller
 
         DB::table('checkout')->where('id', $id)->update(
             [
-                'code' => $request->code,
+                'orders_id' => $request->orders_id,
                 'status' => $request->status,
                 'total_price' => $request->total_price,
                 'users_id' => $request->users_id,

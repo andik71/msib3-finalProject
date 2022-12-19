@@ -44,7 +44,7 @@
                         </div>
                     <thead>
                         <tr>
-                        <th scope="col">Code</th>
+                        <th scope="col">#</th>
                         <th scope="col">Photo</th>
                         <th scope="col">Category</th>
                         <th scope="col">Product</th>
@@ -55,10 +55,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php $no = 1 @endphp
                         @foreach ($products as $product)
                         <tr>
                             <input type="hidden" class="delete_id" value="{{ $product->id }}">
-                            <th scope="row"><a href="#">{{ $product->code}}</a></th>
+                            <th scope="row"><a href="#">{{ $no++}}</a></th>
                             <td>
                             <img src="{{ url('public/admin/img')}}/{{$product->photo}}" width="70px" alt="product" class="img-thumbnail">
                             </td>

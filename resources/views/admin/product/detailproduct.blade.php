@@ -44,11 +44,6 @@
             </div>    
 
             <div class="row">
-                <div class="col-lg-3 col-md-4 label ">Product Code</div>
-                <div class="col-lg-9 col-md-8 fw-bold">{{ $product->code }}</div>
-            </div>
-
-            <div class="row">
                 <div class="col-lg-3 col-md-4 label ">Product Name</div>
                 <div class="col-lg-9 col-md-8 fw-bold">{{ $product->name }}</div>
             </div>

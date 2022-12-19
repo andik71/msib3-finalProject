@@ -22,7 +22,7 @@
             @foreach ($checkouts as $checkout)
                 <tr>
                     <td scope="row">{{ $checkout->id }}</></td>
-                    <td scope="row">{{ $checkout->code }}</></td>
+                    <td scope="row">{{ $checkout->orders_id }}</></td>
                     <td scope="row">{{ $checkout->name }}</></td>
                     <td scope="row">{{ $checkout->address }}</></td>
                     <td scope="row">{{ number_format($checkout->total_price) }}</></td>

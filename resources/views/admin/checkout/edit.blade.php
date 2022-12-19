@@ -54,7 +54,7 @@
                                     <div class="row mb-3">
                                         <label for="ordersCode" class="col-md-4 col-lg-3 col-form-label">Transaction ID</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input class="form-control" type="text" name="code" value="{{ $checkout->code}}">
+                                            <input class="form-control" type="text" name="orders_id" value="{{ $checkout->orders_id}}">
                                         </div>
                                     </div>
 
@@ -76,9 +76,7 @@
                                         <label for="ordersName" class="col-md-4 col-lg-3 col-form-label">Status</label>
                                         <div class="col-md-8 col-lg-9">
                                             <select class="form-select" name="status">
-                                                <option>-- Select Status --</option>
-                                                @php $sel = ($checkout->status == $checkout->status) ? 'selected' : ''; @endphp
-                                                <option {{$sel}} value="{{ $checkout->status }}">{{$checkout->status}}</option>
+                                                <option value="{{$checkout->status}}">-- Select Status --</option>
                                                 <option value="unpaid"">Unpaid</option>
                                                 <option value="pending">Pending</option>
                                                 <option value="paid">Paid</option>

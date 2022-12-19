@@ -12,8 +12,8 @@
 
     <table class="table table-bordered">
         <tr>
-                <th>#</th>
                 <th>Order ID</th>
+                <th>Billed To</th>
                 <th>Product Purchased</th>
                 <th>Total Order</th>
                 <th>Total Price</th>
@@ -21,8 +21,8 @@
             @foreach ($orders as $order)
                 <tr>
                     <th scope="row">{{ $order->id }}</></th>
-                    <th scope="row">{{ $order->checkout->code }}</></th>
-                    <td>{{ $order->products->name }}</td>
+                    <th scope="row">{{ $order->name }}</></th>
+                    <td>{{ $order->product }}</td>
                     <th scope="row">{{ $order->order_quantity }}</></td>
                     <td>Rp. {{ number_format($order->total_price) }}</td>
                 </tr>

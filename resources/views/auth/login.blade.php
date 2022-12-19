@@ -86,7 +86,7 @@
 
                     <div class="d-flex justify-content-center py-4">
                         <a href="{{ url('/') }}" style="text-decoration:none ;" class="logo d-flex align-items-center w-auto">
-                            <img src=" {{ url('/public/assets/img/logo.png')}} " alt="">
+                            <img src=" {{ url('/public/admin/img/logo5.png')}} " alt="">
                             <span class="d-none d-lg-block">Computerpedia</span>
                         </a>
                     </div><!-- End Logo -->
@@ -133,10 +133,6 @@
                                             <label class="form-check-label" for="password">{{ __('Show Password') }}</label>
                                         </div>
 
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="remember"{{ old('remember') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="remember">{{ __('Remember Me') }}</label>
-                                        </div>
                                     </div>
 
                                 </div>

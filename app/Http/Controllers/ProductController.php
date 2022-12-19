@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Exports\ProductExport;
 use App\Models\Category;
+use App\Models\Checkout;
+use App\Models\Orders;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -24,6 +27,122 @@ class ProductController extends Controller
         $products = Product::orderBy('id', 'DESC')->get();
         return view('admin.product.allproduct', compact('products') );
     }
+
+    public function indexShop()
+    {   
+        $search = request('search');
+
+        if ($search) {
+            $products = Product::where('name','like','%'.$search.'%')->get();
+        }else{
+            $products = Product::orderBy('id', 'DESC')->get();
+        }
+
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+
+            $cart = DB::table('orders')
+                    ->where('users_id','=',$id)
+                    ->sum('order_quantity');
+
+            $carts = DB::table('orders')
+                ->join('products', 'products.id', '=', 'orders.products_id')
+                ->select('products.name', 'products.photo', 'orders.total_price', 'orders.order_quantity')
+                ->where('orders.users_id', '=', $id)->get();
+        } else {
+            $cart = [];
+            $carts = [];
+        }
+
+        return view('landingpage.shop', compact('products','cart','carts'));
+    }
+
+    public function smartphone()
+    {
+        $search = request('search');
+
+        if ($search) {
+            $products = Product::where('name', 'like', '%' . $search . '%')->get();
+        } else {
+            $products = Product::where('category_id','1')->orderBy('id', 'DESC')->get();
+        }
+
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+
+            $cart = DB::table('orders')
+            ->where('users_id', '=', $id)
+            ->sum('order_quantity');
+
+            $carts = DB::table('orders')
+            ->join('products', 'products.id', '=', 'orders.products_id')
+            ->select('products.name', 'products.photo', 'orders.total_price', 'orders.order_quantity')
+            ->where('orders.users_id', '=', $id)->get();
+        } else {
+            $cart = [];
+            $carts = [];
+        }
+
+        return view('landingpage.shop', compact('products', 'cart', 'carts'));
+    }
+
+    public function pc()
+    {
+        $search = request('search');
+
+        if ($search) {
+            $products = Product::where('name', 'like', '%' . $search . '%')->get();
+        } else {
+            $products = Product::where('category_id','3')->orderBy('id', 'DESC')->get();
+        }
+
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+
+            $cart = DB::table('orders')
+            ->where('users_id', '=', $id)
+            ->sum('order_quantity');
+
+            $carts = DB::table('orders')
+            ->join('products', 'products.id', '=', 'orders.products_id')
+            ->select('products.name', 'products.photo', 'orders.total_price', 'orders.order_quantity')
+            ->where('orders.users_id', '=', $id)->get();
+        } else {
+            $cart = [];
+            $carts = [];
+        }
+
+        return view('landingpage.shop', compact('products', 'cart', 'carts'));
+    }
+    public function laptop()
+    {
+        $search = request('search');
+
+        if ($search) {
+            $products = Product::where('name', 'like', '%' . $search . '%')->get();
+        } else {
+            $products = Product::where('category_id','2')->orderBy('id', 'DESC')->get();
+        }
+
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+
+            $cart = DB::table('orders')
+            ->where('users_id', '=', $id)
+            ->sum('order_quantity');
+
+            $carts = DB::table('orders')
+            ->join('products', 'products.id', '=', 'orders.products_id')
+            ->select('products.name', 'products.photo', 'orders.total_price', 'orders.order_quantity')
+            ->where('orders.users_id', '=', $id)->get();
+        } else {
+            $cart = [];
+            $carts = [];
+        }
+
+        return view('landingpage.shop', compact('products', 'cart', 'carts'));
+    }
+
     
     /**
      * Show the form for creating a new resource.
@@ -48,12 +167,11 @@ class ProductController extends Controller
     {
 
         $request->validate([
-            'code' => 'required|max:45',
             'name' => 'required|max:45',
             'desc' => 'required|max:500',
             'price' => 'required|integer',
             'stok' => 'required|integer',
-            'sold' => 'required|integer',
+            'sold' => 'nullable|integer',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'category_id' => 'required|integer',
             'store_id' => 'required|integer',
@@ -70,7 +188,6 @@ class ProductController extends Controller
 
         DB::table('products')->insert(
             [
-                'code' => $request->code,
                 'name' => $request->name,
                 'desc' => $request->desc,
                 'price' => $request->price,
@@ -96,6 +213,30 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         return view('admin.product.detailproduct', compact('product'));
+    }
+
+    public function detailShop($id)
+    {
+        $product = Product::find($id);
+
+        if (Auth::user()) {
+            $id = Auth::user()->id;
+
+
+            $cart = DB::table('orders')
+                ->where('users_id', '=', $id)
+                ->sum('order_quantity');
+
+            $carts = DB::table('orders')
+                ->join('products', 'products.id', '=', 'orders.products_id')
+                ->select('products.name', 'products.photo', 'orders.total_price', 'orders.order_quantity')
+                ->where('orders.users_id', '=', $id)->get();
+        } else {
+            $cart = [];
+            $carts = [];
+        }
+
+        return view('landingpage.shop-single', compact('product','cart','carts'));
     }
 
     /**
@@ -124,7 +265,6 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'code' => 'required|max:45',
             'name' => 'required|max:45',
             'desc' => 'required|max:500',
             'price' => 'required|integer',
@@ -154,7 +294,6 @@ class ProductController extends Controller
         DB::table('products')->where('id', $id)->update(
             [
                 //'nip'=>$request->nip,
-                'code' => $request->code,
                 'name' => $request->name,
                 'desc' => $request->desc,
                 'price' => $request->price,
@@ -205,4 +344,24 @@ class ProductController extends Controller
     public function generateCSV(){
         return Excel::download(new ProductExport, 'data_products.xlsx');
     }
+
+    public function addCart(Request $request){
+
+        $quantity = $request->order_quantity;
+        $total = $request->total_price * $quantity;
+
+        DB::table('orders')->insert(
+            [
+                'order_quantity' => $request->order_quantity,
+                'total_price' => $total,
+                'products_id' => $request->products_id,
+                'users_id' => $request->users_id,
+            ]
+        );
+
+        Alert::success('Added To My Cart', 'Products Successfully Added To Cart');
+        return redirect('/cart');
+
+    }
+
 }
