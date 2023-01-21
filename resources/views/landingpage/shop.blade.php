@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="card-body result-container">
-                            <a href="shop-single.html" class="h3 text-decoration-none">{{$product->name}}</a>
+                            <a href="{{ route('detail.shop',$product->id ) }}" class="h3 text-decoration-none">{{$product->name}}</a>
                             <ul class="w-100 list-unstyled d-flex justify-content-between mb-0">
                                 <li class="align-items-center">{{$product->category->name}}</li>
                                 <li class="pt-2">

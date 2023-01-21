@@ -65,7 +65,7 @@
                         @foreach ($checkouts as $checkout)
                         <tr>
                             <th scope="row"><a href="#">{{ $checkout->id}}</a></th>
-                            <td>{{ $checkout->orders_id}}</td>
+                            <td>{{ $checkout->code}}</td>
                             <td>{{ $checkout->name}}</td>
                             <td>{{ $checkout->address}}</td>
                             <td>Rp.{{ number_format($checkout->total_price) }}</td>

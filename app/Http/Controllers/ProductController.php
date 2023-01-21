@@ -269,7 +269,7 @@ class ProductController extends Controller
             'desc' => 'required|max:500',
             'price' => 'required|integer',
             'stok' => 'required|integer',
-            'sold' => 'required|integer',
+            'sold' => 'nullable|integer',
             'photo' => 'nullable|image|mimes:jpg,jpeg,png,gif,svg|max:2048',
             'category_id' => 'required|integer',
             'store_id' => 'required|integer',

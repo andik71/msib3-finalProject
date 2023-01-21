@@ -30,8 +30,8 @@
                                         </div>
                                         <div class="col-7 mt-3 ms-5 align-items-center">
                                             <p>
-                                                {{$item->time}} <br>
-                                                <span>{{$item->status}}</span>
+                                                Date : {{$item->time}} <br>
+                                                Status : <span>{{$item->status}}</span>
                                             </p>
                                             <p class="fw-bold">
                                                 {{ $item->name }} <br>
@@ -39,18 +39,6 @@
                                                 <span class="fw-normal">{{ $item->order_quantity }} Item</span>
                                             </p>
                                         </div>
-                                    </div>
-                                    <div class="mt-2">
-                                        <form method="POST" action=" {{ route('orders.destroyOrders', $item->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <input type="hidden" class="delete_id" value={{ $item->id }}>
-
-                                            <button class="btn btndelete">
-                                                <i class="fa fa-fw fa-trash text-dark mr-1"></i> Remove from orders
-                                            </button>
-                                        </form>
                                     </div>
                                     <hr class="border border-success border-2 opacity-50 mb-3">
                                 @endforeach

@@ -13,7 +13,7 @@
                 <a class="navbar-sm-brand text-light text-decoration-none" href="{{ url('/admin') }}">visit admin
                     panel</a>
             </div>
-            @elseif (!empty(Auth::user()->id) && Auth::user()->role == 'staff')
+            @elseif (!empty(Auth::user()->id) && Auth::user()->role == 'customer')
             <div>
 
             </div>

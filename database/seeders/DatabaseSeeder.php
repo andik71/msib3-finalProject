@@ -105,7 +105,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Chumaedi',
                 'email' => 'Chumaedi@gmail.com',
                 'password' => 'chumaedi',
-                'role' => 'manager',
+                'role' => 'customer',
                 'isactive' => '1',
                 'photo' => '',
                 'address' => 'Tanggerang',
@@ -115,7 +115,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Andika',
                 'email' => 'andika@gmail.com',
                 'password' => 'andika',
-                'role' => 'staff',
+                'role' => 'customer',
                 'isactive' => '0',
                 'photo' => '',
                 'address' => 'Sulawesi',
@@ -127,19 +127,19 @@ class DatabaseSeeder extends Seeder
         $orders = [
             [
                 'order_quantity' => '2',
-                'total_price' => '40000000',
+                'total_price' => '10000000',
                 'products_id' => '1',
                 'users_id' => '1',
             ],
             [
                 'order_quantity' => '4',
-                'total_price' => '60000000',
+                'total_price' => '20000000',
                 'products_id' => '2',
                 'users_id' => '2',
             ],
             [
                 'order_quantity' => '6',
-                'total_price' => '90000000',
+                'total_price' => '10000000',
                 'products_id' => '1',
                 'users_id' => '3',
             ],
@@ -147,22 +147,22 @@ class DatabaseSeeder extends Seeder
 
         $checkout = [
             [
-                'status' => 'unpaid',
-                'total_price' => '20000000',
+                'status' => '',
+                'total_price' => '10000000',
                 'orders_id' => '1',
                 'users_id' => '1',
 
             ],
             [
-                'status' => 'pending',
-                'total_price' => '40000000',
+                'status' => '',
+                'total_price' => '20000000',
                 'orders_id' => '2',
                 'users_id' => '2',
 
             ],
             [
-                'status' => 'paid',
-                'total_price' => '60000000',
+                'status' => '',
+                'total_price' => '10000000',
                 'orders_id' => '3',
                 'users_id' => '3',
 

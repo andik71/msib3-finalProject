@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('role', ['admin', 'manager', 'staff'])->default('staff');
+            $table->enum('role', ['admin', 'customer'])->default('customer');
             $table->tinyInteger('isactive')->default(0);
             $table->string('photo', 45)->default('default.png');
             $table->string('address', 45)->nullable();

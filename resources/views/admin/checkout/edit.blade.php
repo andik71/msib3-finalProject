@@ -73,14 +73,10 @@
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="ordersName" class="col-md-4 col-lg-3 col-form-label">Status</label>
+                                        <label for="stok" class="col-md-4 col-lg-3 col-form-label">Status</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <select class="form-select" name="status">
-                                                <option value="{{$checkout->status}}">-- Select Status --</option>
-                                                <option value="unpaid"">Unpaid</option>
-                                                <option value="pending">Pending</option>
-                                                <option value="paid">Paid</option>
-                                            </select>
+                                            <input name="status" type="text" class="form-control" id="Country"
+                                                value="{{ $checkout->status }}">
                                         </div>
                                     </div>
 

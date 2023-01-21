@@ -26,7 +26,7 @@ class DashboardController extends Controller
         $revenue = DB::table('checkout')->sum('checkout.total_price');
         $revenues = DB::table('orders')->select('id','total_price','users_id')->get();
 
-        $customer = User::count();
+        $customer = DB::table('users')->where('role', '=', 'customer')->count();
         $customers = DB::table('users')->select('id')->get();
 
         return view('admin.home', compact('sales','sale','revenues','revenue','customers','customer'));

@@ -109,11 +109,11 @@
                 @foreach ($products as $product)
                 <div class="col-12 col-md-4 mb-4">
                     <div class="card h-100">
-                        <a href="shop-single.html">
+                        <a href="{{ route('detail.shop',$product->id ) }}">
                             <img src="{{ asset('/public/admin/img/')}}/{{$product->photo}} " class="card-img-top img-fluid">
                         </a>
                         <div class="card-body">
-                            <a href="shop-single.html" class="h2 text-decoration-none text-dark">{{$product->name}}</a>
+                            <a href="{{ route('detail.shop',$product->id ) }}" class="h2 text-decoration-none text-dark">{{$product->name}}</a>
                             <p class="card-text fw-bold mt-3">
                                 Rp. {{number_format($product->price)}}
                             </p>
